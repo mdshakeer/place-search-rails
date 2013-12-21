@@ -1,0 +1,64 @@
+<html>
+<head>
+	<title>Landing Page</title>
+	<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+	<div class="main">
+		<header role="banner">
+			<h3 style="display:inline-block;color:#f5f5f5;position:relative;left:50px;">SEARCH YOUR DESIRED LOCATION</h3>
+			<div style="clear:both;"></div>
+		</header>
+		<div class="page">
+			<div class="pg-left">
+
+			</div>
+			<div class="pg-right">
+				<div class="tabs vertical-tabs list-tabs">
+					<h3>Enter your string to search for the related place</h3>
+					<form class="well" method="get" id="search">
+						<input type="text" class="input-xxlarge" name="query" style="margin:0 35px;" id="query" required/>
+						<input type="submit" class="btn btn-primary btn-large" value="submit string"/>
+						<input type="hidden" name="sensor" value="true"/>
+						<input type="hidden" value="AIzaSyCXNIJbZbJEJBAKVLDHc_A3KUhrWtQLhi0" name="api">
+					</form>
+				</div>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+	</div>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+	</script>
+	<script type="text/javascript">
+	$("#search").submit(function(){
+		alert($("#query").val().trim().length);
+		q = $("#query").val().trim();
+		if (q.length > 0) {
+			$("#query").val(q);
+			$.ajax({
+				url:"https://maps.googleapis.com/maps/api/place/textsearch/xml?query="+q+"&sensor=true&key=AIzaSyCXNIJbZbJEJBAKVLDHc_A3KUhrWtQLhi0",
+				success:function(result){
+					alert("success");
+				},
+				error:function(result){
+					alert("error");
+				}
+			});
+			return false;
+		}
+		else{
+			$("#query").val("");
+			alert("fill the text field");
+			return false;
+		}
+	})
+	</script>
+</body>
+</html>
